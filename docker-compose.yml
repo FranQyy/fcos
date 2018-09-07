@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+
+# Docker Version: 1.13.0
+# Docker Compose Version: 1.10.1
+
+# version: "3"
+
+# services:
+#     web1:
+#         image: dockercloud/hello-world
+#         container_name: web1
+#         ports:
+#             - "81:80"
+
+#     web2:
+#         image: dockercloud/hello-world
+#         container_name: web2
+#         ports:
+#             - "82:80"
