@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '52bft2$7i!b=$k^xfo7ne+fx_&gz#_-wvva5h(ho!gyp^lyw0-'
+SECRET_KEY = '#-u=mua2yq#c47c&qbomq@9&jf9x($(s1#w)hu0^m-n@q8xjd+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,11 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework',
-    'rest_framework.authtoken',
+    'django_filters',
 
     'fcos_api',
-    
 ]
 
 MIDDLEWARE = [
@@ -81,17 +79,15 @@ WSGI_APPLICATION = 'fcos_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lukaszczerniak',
-        'USER': '',
-        'HOST': 'localhost',
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
+AUTH_USER_MODEL = 'fcos_api.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -128,4 +124,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'fcos_api.UserProfile'
+
+# AUTHENTICATION_BACKENDS = (
+#     ('django.contrib.auth.backends.ModelBackend'),
+# )
