@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
-
+from django.conf import settings
 
 class UserManager(BaseUserManager):
     def create_user(self, email, first_name, password=None):
@@ -62,6 +62,8 @@ class User(AbstractBaseUser):
     staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
 
+    # location = models.ManyToManyField('Location', blank=True)
+
     objects = UserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name',] 
@@ -92,3 +94,13 @@ class User(AbstractBaseUser):
     @property
     def is_active(self):
         return self.active
+
+class Location(models.Model):
+    # user_profile = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='user')
+    user_profile = models.ForeignKey('User', on_delete=models.CASCADE)
+    gps_longitude = models.FloatField()
+    gps_latitude = models.FloatField()
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.gps_latitude + self.gps_longitude)

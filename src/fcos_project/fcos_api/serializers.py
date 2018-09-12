@@ -24,3 +24,10 @@ class UserSerializer(serializers.ModelSerializer):
 		user.save()
 
 		return user
+
+class LocationSerializer(serializers.ModelSerializer):
+	"""Serializer for Location items"""
+	class Meta:
+		model = models.Location
+		fields = ('id', 'user_profile', 'gps_longitude', 'gps_latitude', 'created_on')
+		extra_kwargs = {'user_profile': {'read_only': True}}
