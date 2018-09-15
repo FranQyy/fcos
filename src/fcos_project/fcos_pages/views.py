@@ -10,8 +10,8 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-def index(request):
-  return render(request, 'fcos_pages/content/index.html')
+# def index(request):
+#   return render(request, 'fcos_pages/content/index.html')
 
 @login_required(login_url='/user_login/')
 def localisations(request):

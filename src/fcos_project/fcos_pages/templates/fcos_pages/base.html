@@ -12,9 +12,9 @@
   <h1>fcos App</h1>
   <p style="text-align: right">    
   {% if user.is_authenticated %}
-      Welcome {{ user.first_name }}, you are now loged in...
+      Welcome {{ user.first_name }}, you are logged in now.
   {% else %}
-      You are not logged in
+      You are not logged in.
   {% endif %}
 </p>
   <div id="container">
@@ -27,7 +27,7 @@
     <li><a href="{% url 'fcos_pages:activities' %}">Activities</a></li>
     <li><a href="{% url 'fcos_pages:profile' %}">Your Profile</a></li>
     {% if not user.is_authenticated %}
-    <li><a href="{% url 'fcos_pages:user_login' %}">Sign in/Sign up</a></li>
+    <li><a href="{% url 'login' %}">Sign in/Sign up</a></li>
     {% else %}
     <li>  <p><a href="{% url 'logout' %}">logout</a></p>    </li>
     {% endif %}
