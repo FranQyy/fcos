@@ -45,3 +45,12 @@ def user_login(request):
     form = LoginForm()
   return render(request, 'fcos_pages/content/user_login.html', {'form': form})
 
+from django.urls import reverse_lazy
+from django.views import generic
+
+from .forms import CustomUserCreationForm
+
+class SignUp(generic.CreateView):
+  form_class = CustomUserCreationForm
+  success_url = reverse_lazy('login')
+  template_name = 'signup.html'

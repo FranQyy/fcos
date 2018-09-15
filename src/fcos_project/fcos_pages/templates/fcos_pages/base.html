@@ -27,7 +27,7 @@
     <li><a href="{% url 'fcos_pages:activities' %}">Activities</a></li>
     <li><a href="{% url 'fcos_pages:profile' %}">Your Profile</a></li>
     {% if not user.is_authenticated %}
-    <li><a href="{% url 'login' %}">Sign in/Sign up</a></li>
+    <li><a href="{% url 'login' %}">Sign In </a>/<a href="{% url 'fcos_pages:signup' %}"> Sign Up</a></li>
     {% else %}
     <li>  <p><a href="{% url 'logout' %}">logout</a></p>    </li>
     {% endif %}

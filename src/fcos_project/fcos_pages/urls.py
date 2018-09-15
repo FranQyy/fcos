@@ -13,6 +13,6 @@ urlpatterns = [
 	path('localisations/', views.localisations, name='localisations'),
 	path('activities/', views.activities, name='activities'),
 	path('profile/', views.profile, name='profile'),
-	# path('user_login/', views.user_login, name='user_login'),
+	path('signup/', views.SignUp.as_view(), name='signup'),
 
 ]
