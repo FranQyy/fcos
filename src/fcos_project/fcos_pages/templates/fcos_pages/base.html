@@ -1,0 +1,38 @@
+{% load static %}
+{% load bootstrap4 %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'fcos_pages/style.css' %}">
+</head>
+
+<body>
+  <h1>fcos App</h1>
+  <p style="text-align: right">    
+  {% if user.is_authenticated %}
+      Welcome {{ user.first_name }}, you are now loged in...
+  {% else %}
+      You are not logged in
+  {% endif %}
+</p>
+  <div id="container">
+      {% block content %}{% endblock content %}
+  </div>
+  <hr>
+  <ul>Move To:
+    <li><a href="{% url 'fcos_pages:index' %}">Home Page</a></li>
+    <li><a href="{% url 'fcos_pages:localisations' %}">Localisations</a></li>
+    <li><a href="{% url 'fcos_pages:activities' %}">Activities</a></li>
+    <li><a href="{% url 'fcos_pages:profile' %}">Your Profile</a></li>
+    {% if not user.is_authenticated %}
+    <li><a href="{% url 'fcos_pages:user_login' %}">Sign in/Sign up</a></li>
+    {% else %}
+    <li>  <p><a href="{% url 'logout' %}">logout</a></p>    </li>
+    {% endif %}
+  </ul>
+
+</body>
+
+</html>

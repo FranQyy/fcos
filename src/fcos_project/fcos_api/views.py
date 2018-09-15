@@ -46,8 +46,7 @@ class HelloApiView(APIView):
 			message = 'Hello {0}'.format(name)
 			return Response({'message': message})
 		else:
-			return Response(
-				serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 	def put(self, request, pk=None):
 		"""updates an object"""

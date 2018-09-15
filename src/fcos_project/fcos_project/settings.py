@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     'fcos_api',
+    'fcos_pages',
+
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -123,9 +126,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATIC_ROOT = ''
+
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = ( os.path.join('static'), )
 
-# AUTHENTICATION_BACKENDS = (
-#     ('django.contrib.auth.backends.ModelBackend'),
-# )
+AUTHENTICATION_BACKENDS = ('fcos_pages.backends.MyAuthBackend', 'django.contrib.auth.backends.ModelBackend',)
+
+LOGIN_REDIRECT_URL = 'fcos_pages:index'
+LOGOUT_REDIRECT_URL = 'fcos_pages:index'

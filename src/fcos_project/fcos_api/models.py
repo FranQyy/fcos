@@ -104,3 +104,4 @@ class Location(models.Model):
 
     def __str__(self):
         return str(self.gps_latitude + self.gps_longitude)
+
