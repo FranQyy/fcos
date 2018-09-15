@@ -1,0 +1,15 @@
+{% extends 'fcos_pages/base.html' %}
+{% load static %}
+
+{% load bootstrap4 %}
+
+{% block content %}
+  <div id="login">
+    <form action="." method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <p><input type="submit" value="Zaloguj"></p>
+    </form>
+  </div>
+{% endblock %}
+
