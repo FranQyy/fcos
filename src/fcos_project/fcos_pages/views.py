@@ -13,15 +13,15 @@ from django.contrib.auth.decorators import login_required
 # def index(request):
 #   return render(request, 'fcos_pages/content/index.html')
 
-@login_required(login_url='/user_login/')
+@login_required
 def localisations(request):
   return render(request, 'fcos_pages/content/localisations.html')
 
-@login_required(login_url='/user_login/')
+@login_required
 def activities(request):
   return render(request, 'fcos_pages/content/activities.html')
 
-@login_required(login_url='/user_login/')
+@login_required
 def profile(request):
   return render(request, 'fcos_pages/content/profile.html')
 
