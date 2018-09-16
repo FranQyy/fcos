@@ -21,30 +21,38 @@ from decouple import config
 
 @login_required
 def localisations(request):
-  ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '')
   ipstack_apikey = config('ipstack_apikey')
-  response = requests.get('http://api.ipstack.com/check?access_key=%s' % ipstack_apikey)
+  response = requests.get('http://api.ipstack.com/check?access_key={0}'.format(ipstack_apikey))
   geodata = response.json()
   return render(request, 'fcos_pages/content/localisations.html', {
         'ip': geodata['ip'],
         'country': geodata['country_name'],
         'region_name': geodata['region_name'],
         'city': geodata['city'],
-        'longitude': geodata['longitude'],
         'latitude': geodata['latitude'],
+        'longitude': geodata['longitude'],
   })
 
 from datetime import datetime
+
 @login_required
 def events(request):
-  response = requests.get('https://api.wheretheiss.at/v1/satellites/25544')
-  geodata = response.json()
-  timestamp = int(geodata['timestamp'])
-  print(timestamp)
+  ipstack_apikey = config('ipstack_apikey')
+  response = requests.get('http://api.ipstack.com/check?access_key={0}'.format(ipstack_apikey))
+  position = response.json()
+
+
+  response = requests.get('http://api.open-notify.org/iss-pass.json?lat={0}&lon={1}'.format(position['latitude'],position['longitude']))
+  prediction = response.json()
+
+
   return render(request, 'fcos_pages/content/events.html', {
-    'latitude': geodata['latitude'],
-    'longitude': geodata['longitude'],
-    'timestamp': datetime.fromtimestamp(timestamp),
+
+    'prediction1_risetime': datetime.utcfromtimestamp(prediction['response'][0]['risetime']).strftime('%Y-%m-%d %H:%M:%S'),
+    'prediction2_risetime': datetime.utcfromtimestamp(prediction['response'][1]['risetime']).strftime('%Y-%m-%d %H:%M:%S'),
+    'prediction3_risetime': datetime.utcfromtimestamp(prediction['response'][2]['risetime']).strftime('%Y-%m-%d %H:%M:%S'),
+    'position': position['latitude'],
+    'position2': position['longitude'],
   })
 
 @login_required

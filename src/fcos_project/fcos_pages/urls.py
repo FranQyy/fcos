@@ -14,5 +14,4 @@ urlpatterns = [
 	path('events/', views.events, name='events'),
 	path('profile/', views.profile, name='profile'),
 	path('signup/', views.SignUp.as_view(), name='signup'),
-
 ]

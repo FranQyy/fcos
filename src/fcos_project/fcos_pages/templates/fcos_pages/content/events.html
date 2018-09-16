@@ -5,6 +5,9 @@
 
 {% block content %}
   <h2>Your Events:</h2>
-  <p>ISS is probably there: {{ longitude}}, {{ latitude }}.</p>
-  <p>{{ timestamp }}</p>
+  <p>{{ prediction1_risetime }}</p>
+  <p>{{ prediction2_risetime }}</p>
+  <p>{{ prediction3_risetime }}</p>
+  <p>Your current location: {{ position }}, {{ position2 }}</p>
+
 {% endblock %}
