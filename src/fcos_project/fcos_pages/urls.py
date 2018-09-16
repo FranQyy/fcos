@@ -11,7 +11,7 @@ app_name='fcos_pages'
 urlpatterns = [
 	path('', TemplateView.as_view(template_name='index.html'), name='index'),
 	path('localisations/', views.localisations, name='localisations'),
-	path('activities/', views.activities, name='activities'),
+	path('events/', views.events, name='events'),
 	path('profile/', views.profile, name='profile'),
 	path('signup/', views.SignUp.as_view(), name='signup'),
 

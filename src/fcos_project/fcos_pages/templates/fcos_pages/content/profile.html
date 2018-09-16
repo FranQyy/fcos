@@ -4,5 +4,7 @@
 {% load bootstrap4 %}
 
 {% block content %}
-  <h4>Your profile:</h4>
+  <h2>Your profile:</h2>
+  <p><strong>Imię:</strong> {{ user.first_name }}</p>
+  <p><strong>Email:</strong> {{ user.email }}</p>
 {% endblock %}

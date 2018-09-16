@@ -13,6 +13,7 @@ from .forms import CustomUserCreationForm
 
 import requests
 
+from decouple import config
 # Create your views here.
 
 # def index(request):
@@ -21,22 +22,35 @@ import requests
 @login_required
 def localisations(request):
   ip_address = request.META.get('HTTP_X_FORWARDED_FOR', '')
-  print(ip_address)
-  response = requests.get('http://api.ipstack.com/check?access_key=24eb765a336f5b614aee079d61416188')
+  ipstack_apikey = config('ipstack_apikey')
+  response = requests.get('http://api.ipstack.com/check?access_key=%s' % ipstack_apikey)
   geodata = response.json()
   return render(request, 'fcos_pages/content/localisations.html', {
         'ip': geodata['ip'],
         'country': geodata['country_name'],
+        'region_name': geodata['region_name'],
         'city': geodata['city'],
+        'longitude': geodata['longitude'],
+        'latitude': geodata['latitude'],
+  })
+
+from datetime import datetime
+@login_required
+def events(request):
+  response = requests.get('https://api.wheretheiss.at/v1/satellites/25544')
+  geodata = response.json()
+  timestamp = int(geodata['timestamp'])
+  print(timestamp)
+  return render(request, 'fcos_pages/content/events.html', {
+    'latitude': geodata['latitude'],
+    'longitude': geodata['longitude'],
+    'timestamp': datetime.fromtimestamp(timestamp),
   })
 
 @login_required
-def activities(request):
-  return render(request, 'fcos_pages/content/activities.html')
-
-@login_required
 def profile(request):
-  return render(request, 'fcos_pages/content/profile.html')
+  user = request.user
+  return render(request, 'fcos_pages/content/profile.html', {'user': user})
 
 # def user_login(request):
 #   if request.method == 'POST':
