@@ -12,7 +12,7 @@
   <h1>fcos App</h1>
   <p style="text-align: right">    
   {% if user.is_authenticated %}
-      Welcome {{ user.first_name }}, you are logged in now.
+      Welcome <strong>{{ user.first_name }}</strong>, you are logged in now.
   {% else %}
       You are not logged in.
   {% endif %}
