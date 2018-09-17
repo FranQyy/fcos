@@ -42,15 +42,29 @@ def events(request):
   position = response.json()
 
   n2yo_apikey = config('n2yo_apikey')
-  response = requests.get('http://www.n2yo.com/rest/v1/satellite/visualpasses/25544/{0}/{1}/0/7/60/&apiKey={2}'.format(position['latitude'],position['longitude'],n2yo_apikey))
+  response = requests.get('http://www.n2yo.com/rest/v1/satellite/radiopasses/25544/{0}/{1}/0/7/60/&apiKey={2}'.format(position['latitude'],position['longitude'],n2yo_apikey))
   prediction = response.json()
-  print(prediction)
+
+  prediction1_timestamp = prediction['passes'][0]['startUTC']
+  prediction2_timestamp = prediction['passes'][0]['startUTC']
+  prediction3_timestamp = prediction['passes'][0]['startUTC']
+
+  open_weather_apikey = config('open_weather_apikey')
+  response = requests.get('http://api.openweathermap.org/data/2.5/forecast?lat={0}&lon={1}&APPID={2}'.format(position['latitude'],position['longitude'],open_weather_apikey))
+  weather_forecast = response.json()
+  print(weather_forecast)
+  i=0
+  while abs(prediction1_timestamp - weather_forecast['list'][i]['dt']) > 3*3600:
+    print(prediction1_timestamp,weather_forecast['list'][i]['dt'])
+    i = i + 1
+  prediction1_forecast = weather_forecast['list'][i]['main']['temp']
 
   return render(request, 'fcos_pages/content/events.html', {
 
     'prediction1_risetime': datetime.utcfromtimestamp(prediction['passes'][0]['startUTC']).strftime('%Y-%m-%d %H:%M:%S'),
     'prediction2_risetime': datetime.utcfromtimestamp(prediction['passes'][1]['startUTC']).strftime('%Y-%m-%d %H:%M:%S'),
     'prediction3_risetime': datetime.utcfromtimestamp(prediction['passes'][2]['startUTC']).strftime('%Y-%m-%d %H:%M:%S'),
+    'weather_forecast': prediction1_forecast,
     'position': position['latitude'],
     'position2': position['longitude'],
   })
