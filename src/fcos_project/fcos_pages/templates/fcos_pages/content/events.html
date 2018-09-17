@@ -5,10 +5,14 @@
 
 {% block content %}
   <h2>Your Events:</h2>
-  <p>{{ prediction1_risetime }}</p>
-  <p>{{ prediction2_risetime }}</p>
-  <p>{{ prediction3_risetime }}</p>
-  <p>{{ weather_forecast }}</p>
-  <p>Your current location: {{ position }}, {{ position2 }}</p>
+  <h3>{{ prediction1_risetime }}</h3>
+  <p>Temperature: {{ weather_forecast1_temp }} <sup>o</sup>C</p>
+  <p>Clouds: {{ weather_forecast1_clouds }} %</p>
+  <h3>{{ prediction2_risetime }}</h3>
+  <p>Temperature: {{ weather_forecast2_temp }} <sup>o</sup>C</p>
+  <p>Clouds: {{ weather_forecast2_clouds }} %</p>
+  <h3>{{ prediction3_risetime }}</h3>
+  <p>Temperature: {{ weather_forecast3_temp }} <sup>o</sup>C</p>
+  <p>Clouds: {{ weather_forecast3_clouds }} %</p>
 
 {% endblock %}

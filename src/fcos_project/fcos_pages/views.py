@@ -46,27 +46,43 @@ def events(request):
   prediction = response.json()
 
   prediction1_timestamp = prediction['passes'][0]['startUTC']
-  prediction2_timestamp = prediction['passes'][0]['startUTC']
-  prediction3_timestamp = prediction['passes'][0]['startUTC']
+  prediction2_timestamp = prediction['passes'][1]['startUTC']
+  prediction3_timestamp = prediction['passes'][2]['startUTC']
 
   open_weather_apikey = config('open_weather_apikey')
   response = requests.get('http://api.openweathermap.org/data/2.5/forecast?lat={0}&lon={1}&APPID={2}'.format(position['latitude'],position['longitude'],open_weather_apikey))
   weather_forecast = response.json()
-  print(weather_forecast)
-  i=0
-  while abs(prediction1_timestamp - weather_forecast['list'][i]['dt']) > 3*3600:
-    print(prediction1_timestamp,weather_forecast['list'][i]['dt'])
-    i = i + 1
-  prediction1_forecast = weather_forecast['list'][i]['main']['temp']
+  
+  k=0
+  while abs(prediction1_timestamp - weather_forecast['list'][k]['dt']) > 3*3600:
+    k = k + 1
+  prediction1_forecast_temp = round(float(weather_forecast['list'][k]['main']['temp'])-273.15,1)
+  prediction1_forecast_clouds = float(weather_forecast['list'][k]['clouds']['all'])
 
+  l=0
+  while abs(prediction2_timestamp - weather_forecast['list'][l]['dt']) > 3*3600:
+    l = l + 1
+  prediction2_forecast_temp = round(float(weather_forecast['list'][l]['main']['temp'])-273.15,1)
+  prediction2_forecast_clouds = float(weather_forecast['list'][l]['clouds']['all'])
+
+  m=0
+  while abs(prediction3_timestamp - weather_forecast['list'][m]['dt']) > 3*3600:
+    m = m + 1
+  prediction3_forecast_temp = round(float(weather_forecast['list'][m]['main']['temp'])-273.15,1)
+  prediction3_forecast_clouds = float(weather_forecast['list'][m]['clouds']['all'])
+
+  print(k,l,m)
   return render(request, 'fcos_pages/content/events.html', {
 
     'prediction1_risetime': datetime.utcfromtimestamp(prediction['passes'][0]['startUTC']).strftime('%Y-%m-%d %H:%M:%S'),
     'prediction2_risetime': datetime.utcfromtimestamp(prediction['passes'][1]['startUTC']).strftime('%Y-%m-%d %H:%M:%S'),
     'prediction3_risetime': datetime.utcfromtimestamp(prediction['passes'][2]['startUTC']).strftime('%Y-%m-%d %H:%M:%S'),
-    'weather_forecast': prediction1_forecast,
-    'position': position['latitude'],
-    'position2': position['longitude'],
+    'weather_forecast1_temp': prediction1_forecast_temp,
+    'weather_forecast1_clouds': prediction1_forecast_clouds,
+    'weather_forecast2_temp': prediction2_forecast_temp,
+    'weather_forecast2_clouds': prediction2_forecast_clouds,
+    'weather_forecast3_temp': prediction3_forecast_temp,
+    'weather_forecast3_clouds': prediction3_forecast_clouds,
   })
 
 @login_required
