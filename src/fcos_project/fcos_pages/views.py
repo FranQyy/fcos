@@ -41,16 +41,16 @@ def events(request):
   response = requests.get('http://api.ipstack.com/check?access_key={0}'.format(ipstack_apikey))
   position = response.json()
 
-
-  response = requests.get('http://api.open-notify.org/iss-pass.json?lat={0}&lon={1}'.format(position['latitude'],position['longitude']))
+  n2yo_apikey = config('n2yo_apikey')
+  response = requests.get('http://www.n2yo.com/rest/v1/satellite/visualpasses/25544/{0}/{1}/0/7/60/&apiKey={2}'.format(position['latitude'],position['longitude'],n2yo_apikey))
   prediction = response.json()
-
+  print(prediction)
 
   return render(request, 'fcos_pages/content/events.html', {
 
-    'prediction1_risetime': datetime.utcfromtimestamp(prediction['response'][0]['risetime']).strftime('%Y-%m-%d %H:%M:%S'),
-    'prediction2_risetime': datetime.utcfromtimestamp(prediction['response'][1]['risetime']).strftime('%Y-%m-%d %H:%M:%S'),
-    'prediction3_risetime': datetime.utcfromtimestamp(prediction['response'][2]['risetime']).strftime('%Y-%m-%d %H:%M:%S'),
+    'prediction1_risetime': datetime.utcfromtimestamp(prediction['passes'][0]['startUTC']).strftime('%Y-%m-%d %H:%M:%S'),
+    'prediction2_risetime': datetime.utcfromtimestamp(prediction['passes'][1]['startUTC']).strftime('%Y-%m-%d %H:%M:%S'),
+    'prediction3_risetime': datetime.utcfromtimestamp(prediction['passes'][2]['startUTC']).strftime('%Y-%m-%d %H:%M:%S'),
     'position': position['latitude'],
     'position2': position['longitude'],
   })
