@@ -1,10 +1,12 @@
 html{
-  background-color: rgb(140, 179, 252);
+  background-color: rgb(0, 26, 75);
+  color: white;
 }
 
 #body{
   padding: 5%;
-  background-color: rgb(140, 179, 252);
+  background-color: rgb(0, 26, 75);
+  color: white;
   font-family: 'Montserrat', sans-serif;
   font-size: 300;
 }
@@ -19,4 +21,8 @@ html a{
 
 #menu{
   margin-right: 30%;
+}
+
+.card{
+  color: black;
 }

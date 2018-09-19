@@ -42,7 +42,7 @@ def events(request):
   position = response.json()
 
   n2yo_apikey = config('n2yo_apikey')
-  response = requests.get('http://www.n2yo.com/rest/v1/satellite/radiopasses/25544/{0}/{1}/0/7/60/&apiKey={2}'.format(position['latitude'],position['longitude'],n2yo_apikey))
+  response = requests.get('http://www.n2yo.com/rest/v1/satellite/visualpasses/25544/{0}/{1}/0/7/60/&apiKey={2}'.format(position['latitude'],position['longitude'],n2yo_apikey))
   prediction = response.json()
 
   prediction1_timestamp = prediction['passes'][0]['startUTC']
