@@ -6,7 +6,7 @@ fcos gonna use API Weather and International Space Station API to provide users 
 
 Fcos uses **Python 3**, **Django** and **Django RestFramework**.
 
-![fcos App](https://github.com/FranQyy/fcos/blob/master/fcos_app_screenshot.png)
+<kbd>![fcos App](https://github.com/FranQyy/fcos/blob/master/fcos_app_screenshot.png)</kbd>
 
 
 + Dockerfile
