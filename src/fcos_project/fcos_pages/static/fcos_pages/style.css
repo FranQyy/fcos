@@ -1,5 +1,22 @@
-body{
-  padding-left: 5%;
-  padding-right: 5%;
-  background: rgb(140, 179, 252);
+html{
+  background-color: rgb(140, 179, 252);
+}
+
+#body{
+  padding: 5%;
+  background-color: rgb(140, 179, 252);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 300;
+}
+
+html a{
+  color: #AF8C3E;
+}
+
+#menu a{
+  margin-left: 20px;
+}
+
+#menu{
+  margin-right: 30%;
 }
